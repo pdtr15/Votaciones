@@ -192,9 +192,3 @@ npm run preview  # Preview del build
    - Start command: `npm start`
    - Root directory: `backend`
 3. Agregar variables de entorno desde el dashboard
-
-
-## 📝 Licencia
-
-Este proyecto fue desarrollado como proyecto final de curso.
-⭐ Si te gusta este proyecto, considera darle una estrella en GitHub
