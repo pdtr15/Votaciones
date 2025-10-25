@@ -1,0 +1,557 @@
+// Variables de colores
+$primary-color: #2c3e50;
+$secondary-color: #3498db;
+$success-color: #27ae60;
+$danger-color: #e74c3c;
+$warning-color: #f39c12;
+$light-bg: #f8f9fa;
+$border-color: #e1e8ed;
+$text-light: #7f8c8d;
+$text-dark: #2c3e50;
+
+// Tarjeta principal
+.campaign-card {
+    background: #ffffff;
+    border: 1px solid $border-color;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px;
+    width: 320px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    cursor: default;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+}
+
+// Header de la tarjeta
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 12px;
+}
+
+.campaign-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: $primary-color;
+    margin: 0;
+    flex: 1;
+    line-height: 1.3;
+}
+
+// Estados
+.status {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-left: 8px;
+}
+
+.active {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: $success-color;
+}
+
+.finished {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: $danger-color;
+}
+
+// Descripción
+.campaign-description {
+    color: $text-light;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0 0 16px 0;
+    padding: 0;
+}
+
+// Previsualización de candidatos
+.candidates-preview {
+    background: $light-bg;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.candidates-count {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: $text-dark;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.count-badge {
+    background: $secondary-color;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    margin-right: 8px;
+}
+
+.preview-names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.candidate-preview {
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    color: $text-dark;
+}
+
+.more-candidates {
+    background: $primary-color;
+    color: white;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+}
+
+// Sección de detalles
+.details {
+    margin-top: 16px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 16px;
+    background: $light-bg;
+}
+
+// Toggle section
+.toggle-section {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid $border-color;
+}
+
+.toggle-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    color: $text-dark;
+    font-size: 0.9rem;
+}
+
+.toggle-container {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    &:checked + .toggle-slider {
+        background-color: $success-color;
+    }
+    
+    &:checked + .toggle-slider:before {
+        transform: translateX(20px);
+    }
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+    
+    &:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+}
+
+// Sección de candidatos
+.candidates {
+    .candidates-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $primary-color;
+        margin: 0 0 12px 0;
+    }
+}
+
+.candidates-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.candidate-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.candidate-name {
+    color: $text-dark;
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+.remove-candidate-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    color: $danger-color;
+    transition: background-color 0.2s;
+    
+    &:hover {
+        background-color: rgba(231, 76, 60, 0.1);
+    }
+    
+    svg {
+        display: block;
+    }
+}
+
+.no-candidates {
+    text-align: center;
+    color: $text-light;
+    font-style: italic;
+    padding: 20px;
+    background: white;
+    border-radius: 6px;
+    border: 1px dashed $border-color;
+}
+
+.add-candidate-section {
+    margin-top: 12px;
+}
+
+// Botón ver detalles
+.view-details-btn {
+    display: block;
+    width: 100%;
+    background: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    margin-top: 16px;
+    
+    &:hover {
+        background: darken($primary-color, 10%);
+        color: white;
+        text-decoration: none;
+    }
+}
+
+// ====================
+// ESTILOS DEL MODAL
+// ====================
+
+// Modal Overlay
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalHeader {
+  position: relative;
+  padding: 1.5rem 1.5rem 1rem;
+  
+  .mainTitle {
+    margin: 0;
+    color: $text-dark;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: left;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: $text-light;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    color: $text-dark;
+    background-color: $light-bg;
+  }
+}
+
+.modalBody {
+  padding: 0 1.5rem 1rem;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.sectionLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: $text-dark;
+  font-size: 1rem;
+}
+
+.searchContainer {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.formControl {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  
+  &:focus {
+    outline: none;
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+  }
+  
+  &.error {
+    border-color: $danger-color;
+  }
+}
+
+.searchButton {
+  background-color: $secondary-color;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  
+  &:hover:not(:disabled) {
+    background-color: darken($secondary-color, 10%);
+  }
+  
+  &:disabled {
+    background-color: lighten($secondary-color, 20%);
+    cursor: not-allowed;
+  }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.errorText {
+  display: block;
+  color: $danger-color;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.colegiadoInfo {
+  background-color: $light-bg;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-left: 4px solid $secondary-color;
+}
+
+.infoItem {
+  margin-bottom: 0.75rem;
+  
+  strong {
+    display: block;
+    color: $text-dark;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+  }
+  
+  span {
+    color: $text-light;
+    font-size: 1rem;
+  }
+}
+
+.modalFooter {
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid $border-color;
+  background-color: $light-bg;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.primaryButton {
+  background-color: #e0e0e0;
+  color: #000000;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  
+  &:hover:not(:disabled) {
+    background-color: #d5d5d5;
+    border-color: #9e9e9e;
+  }
+  
+  &:disabled {
+    background-color: #f5f5f5;
+    color: #9e9e9e;
+    cursor: not-allowed;
+  }
+}
+
+.cancelButton {
+  background-color: #e0e0e0;
+  color: #000000;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  
+  &:hover {
+    background-color: #d5d5d5;
+    border-color: #9e9e9e;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .campaign-card {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .status {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+}

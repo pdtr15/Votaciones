@@ -1,0 +1,898 @@
+main {
+    padding: 32px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    min-height: calc(100vh - 80px);
+}
+
+.campaign-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.campaign-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+    }
+    
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+        border-color: rgba(99, 102, 241, 0.2);
+    }
+}
+
+.campaign-card h2 {
+    font-size: 1.3rem;
+    margin: 20px 0 16px;
+    color: #1e293b;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.campaign-card p {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    line-clamp: 10;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// Variables de colores
+$primary-color: #2c3e50;
+$secondary-color: #3498db;
+$success-color: #27ae60;
+$danger-color: #e74c3c;
+$warning-color: #f39c12;
+$light-bg: #f8f9fa;
+$border-color: #e1e8ed;
+$text-light: #7f8c8d;
+$text-dark: #2c3e50;
+
+// Tarjeta de Candidato
+.candidateCard {
+    background: #ffffff;
+    border: 1px solid $border-color;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px;
+    width: 320px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    cursor: default;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.cardHeader {
+    margin-bottom: 12px;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 12px;
+}
+
+.candidateName {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: $primary-color;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.cardBody {
+    margin-bottom: 16px;
+}
+
+.candidateDescription {
+    color: $text-light;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.cardFooter {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.voteButton {
+    background: $success-color;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1;
+
+    &:hover:not(:disabled) {
+        background: darken($success-color, 10%);
+    }
+
+    &:disabled {
+        background: lighten($success-color, 20%);
+        cursor: not-allowed;
+    }
+}
+
+.detailsButton {
+    background: $secondary-color;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1;
+
+    &:hover {
+        background: darken($secondary-color, 10%);
+    }
+}
+
+// MODAL DE DETALLES
+.detailsModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.detailsModalContent {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.closeButton {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: $danger-color;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background: darken($danger-color, 10%);
+    }
+}
+
+.candidateTitle {
+    color: $text-dark;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.votersBadge {
+    background: $secondary-color;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.separator {
+    border: none;
+    border-top: 3px solid $border-color;
+    margin: 2rem 0;
+}
+
+.modalBody {
+    padding: 0 1rem;
+}
+
+.sectionTitle {
+    color: $text-dark;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+}
+
+.tableContainer {
+    background: $light-bg;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.votesTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tableHeader {
+    background: $primary-color;
+    color: white;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    text-align: left;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &:first-child {
+        border-top-left-radius: 6px;
+    }
+
+    &:last-child {
+        border-top-right-radius: 6px;
+    }
+}
+
+.tableRow {
+    transition: background-color 0.2s;
+
+    &:hover {
+        background: $light-bg;
+    }
+}
+
+.tableCell {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid $border-color;
+    color: $text-dark;
+    font-size: 1rem;
+    font-weight: 500;
+
+    &:last-child {
+        font-weight: 600;
+        color: $success-color;
+    }
+}
+
+.chartContainer {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: $light-bg;
+    border-radius: 8px;
+}
+
+.chart {
+    width: 100%;
+    height: 20px;
+    background: $border-color;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.chartFill {
+    height: 100%;
+    background: linear-gradient(90deg, $secondary-color, $primary-color);
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+}
+
+.chartLabel {
+    text-align: center;
+    color: $text-light;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+// NUEVO DISEÑO CON PESTAÑAS
+.tabContainer {
+    display: flex;
+    background: white;
+    border-radius: 15px;
+    padding: 0.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid $border-color;
+}
+
+.tabButton {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: $text-light;
+    
+    &:hover {
+        background: $light-bg;
+        color: $text-dark;
+    }
+    
+    &.active {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+}
+
+// GRÁFICA CIRCULAR
+.pieChartSection {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid $border-color;
+}
+
+.pieChartContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.pieChartSvgContainer {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pieChartSvg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease-in-out;
+}
+
+.pieChart {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-in-out;
+}
+
+.pieCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.totalVotes {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $primary-color;
+    line-height: 1;
+}
+
+.centerLabel {
+    font-size: 0.8rem;
+    color: $text-light;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 300px;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: $light-bg;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+        transform: translateX(5px);
+        background: darken($light-bg, 2%);
+    }
+}
+
+.legendColor {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.legendName {
+    flex: 1;
+    font-weight: 600;
+    color: $text-dark;
+    font-size: 0.95rem;
+}
+
+.legendPercentage {
+    font-weight: 700;
+    color: $primary-color;
+    font-size: 1.1rem;
+    min-width: 45px;
+    text-align: right;
+}
+
+.legendVotes {
+    color: $text-light;
+    font-size: 0.8rem;
+    min-width: 70px;
+    text-align: right;
+}
+
+// ESTADÍSTICAS
+.statsSection {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid $border-color;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.statCard {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    transition: transform 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-5px);
+    }
+    
+    &:nth-child(2) {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3);
+    }
+    
+    &:nth-child(3) {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+    }
+    
+    &:nth-child(4) {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        box-shadow: 0 8px 25px rgba(67, 233, 123, 0.3);
+    }
+}
+
+.statIcon {
+    font-size: 2.5rem;
+    opacity: 0.9;
+}
+
+.statContent {
+    flex: 1;
+}
+
+.statValue {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+}
+
+.statLabel {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 0.5rem 0 0 0;
+    font-weight: 500;
+}
+
+// RESULTADOS DE CANDIDATOS
+.candidateResults {
+    margin: 3rem 0;
+}
+
+.resultsTitle {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin-bottom: 2rem;
+}
+
+.resultsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.candidateResultCard {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid $border-color;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.resultHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.candidateAvatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.candidateInfo {
+    flex: 1;
+}
+
+.resultName {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin: 0 0 0.3rem 0;
+}
+
+.rank {
+    font-size: 0.8rem;
+    color: $text-light;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.resultStats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat {
+    text-align: center;
+    padding: 1rem;
+    background: $light-bg;
+    border-radius: 10px;
+}
+
+.statNumber {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $primary-color;
+    line-height: 1;
+}
+
+.statLabel {
+    font-size: 0.8rem;
+    color: $text-light;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.3rem;
+}
+
+.progressWrapper {
+    width: 100%;
+    height: 8px;
+    background: $border-color;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progressBar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+    position: relative;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: shimmer 2s infinite;
+    }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+// RESPONSIVE DESIGN
+@media (max-width: 768px) {
+    .candidateCard {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .cardFooter {
+        flex-direction: column;
+    }
+
+    .detailsModalContent {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .modalHeader {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .candidateTitle {
+        font-size: 2rem;
+        order: 1;
+    }
+
+    .votersBadge {
+        order: 2;
+    }
+
+    .closeButton {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .tableContainer {
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    .votesTable {
+        min-width: 500px;
+    }
+
+    .tableHeader,
+    .tableCell {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .tabContainer {
+        flex-direction: column;
+    }
+    
+    .pieChartContainer {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .pieChart {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .statCard {
+        padding: 1.5rem;
+    }
+    
+    .statValue {
+        font-size: 1.8rem;
+    }
+    
+    .resultsGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .resultHeader {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .resultStats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .detailsModalContent {
+        padding: 1rem;
+        margin: 0.5rem;
+    }
+
+    .candidateTitle {
+        font-size: 1.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.3rem;
+    }
+    
+    .pieChartSection,
+    .statsSection {
+        padding: 1.5rem;
+    }
+    
+    .pieChart {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .pieCenter {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .totalVotes {
+        font-size: 1.5rem;
+    }
+    
+    .legend {
+        max-width: 100%;
+    }
+    
+    .candidateResultCard {
+        padding: 1rem;
+    }
+}
